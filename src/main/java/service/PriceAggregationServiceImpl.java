@@ -6,6 +6,7 @@ import dto.HuobiTickerDto;
 import dto.PriceDto;
 import entity.AggregatedPrice;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PriceAggregationServiceImpl
@@ -28,11 +30,16 @@ public class PriceAggregationServiceImpl
     @Scheduled(fixedRate = 10000)
     @Override
     public void aggregatePrices() {
+        log.info("Start price aggregation");
         // fetch prices from Binance & Huobi
         Map<String, PriceDto> binance = fetchBinance();
         Map<String, PriceDto> huobi = fetchHuobi();
 
         for (String symbol : List.of("BTCUSDT", "ETHUSDT")) {
+            if (!binance.containsKey(symbol) || !huobi.containsKey(symbol)) {
+                log.warn("Missing price for symbol {}", symbol);
+                continue;
+            }
             BigDecimal bestBid = binance.get(symbol).getBid()
                     .max(huobi.get(symbol).getBid());
 
@@ -46,6 +53,7 @@ public class PriceAggregationServiceImpl
             price.setUpdatedAt(LocalDateTime.now());
 
             priceRepository.save(price);
+            log.info("Aggregated {} | bid={} ask={}", symbol, bestBid, bestAsk);
         }
     }
 
@@ -57,51 +65,62 @@ public class PriceAggregationServiceImpl
 
     private Map<String, PriceDto> fetchBinance() {
 
-        String url = "https://api.binance.com/api/v3/ticker/bookTicker";
-
-        BinanceTickerDto[] response =
-                restTemplate.getForObject(url, BinanceTickerDto[].class);
-
         Map<String, PriceDto> result = new HashMap<>();
-
-        assert response != null;
-        for (BinanceTickerDto dto : response) {
-            if ("BTCUSDT".equals(dto.getSymbol()) ||
-                    "ETHUSDT".equals(dto.getSymbol())) {
-
-                result.put(dto.getSymbol(),
-                        new PriceDto(
-                                new BigDecimal(dto.getBidPrice()),
-                                new BigDecimal(dto.getAskPrice())
-                        )
-                );
+        try {
+            BinanceTickerDto[] response =
+                    restTemplate.getForObject(
+                            "https://api.binance.com/api/v3/ticker/bookTicker",
+                            BinanceTickerDto[].class
+                    );
+            if (response == null) {
+                return result;
             }
+
+            for (BinanceTickerDto dto : response) {
+                if ("BTCUSDT".equals(dto.getSymbol())
+                        || "ETHUSDT".equals(dto.getSymbol())) {
+
+                    result.put(dto.getSymbol(),
+                            new PriceDto(
+                                    new BigDecimal(dto.getBidPrice()),
+                                    new BigDecimal(dto.getAskPrice())
+                            ));
+                }
+            }
+        } catch (Exception e) {
+            log.error("Failed to fetch Binance prices", e);
         }
+
         return result;
     }
 
     private Map<String, PriceDto> fetchHuobi() {
-
-        String url = "https://api.huobi.pro/market/tickers";
-
-        HuobiResponse response =
-                restTemplate.getForObject(url, HuobiResponse.class);
-
         Map<String, PriceDto> result = new HashMap<>();
-
-        assert response != null;
-        for (HuobiTickerDto dto : response.getData()) {
-
-            String symbol = dto.getSymbol().toUpperCase();
-
-            if ("BTCUSDT".equals(symbol) ||
-                    "ETHUSDT".equals(symbol)) {
-
-                result.put(symbol,
-                        new PriceDto(dto.getBid(), dto.getAsk())
-                );
+        try {
+            HuobiResponse response =
+                    restTemplate.getForObject(
+                            "https://api.huobi.pro/market/tickers",
+                            HuobiResponse.class
+                    );
+            if (response == null || response.getData() == null) {
+                return result;
             }
+
+            for (HuobiTickerDto dto : response.getData()) {
+
+                String symbol = dto.getSymbol().toUpperCase();
+
+                if ("BTCUSDT".equals(symbol)
+                        || "ETHUSDT".equals(symbol)) {
+
+                    result.put(symbol,
+                            new PriceDto(dto.getBid(), dto.getAsk()));
+                }
+            }
+        } catch (Exception e) {
+            log.error("Failed to fetch Huobi prices", e);
         }
+
         return result;
     }
 }
