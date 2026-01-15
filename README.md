@@ -1,5 +1,7 @@
 <img width="1479" height="579" alt="image" src="https://github.com/user-attachments/assets/a80c8068-0f30-4b97-8351-797cb55fd1d1" /># fintech_java
 technical test
+Login H2 Console: <img width="1195" height="806" alt="image" src="https://github.com/user-attachments/assets/62884c04-7733-4849-bef2-835eb6f8a3af" />
+
 TASK 1 — Verify Price Aggregation (Scheduler)
 -<img width="1903" height="626" alt="image" src="https://github.com/user-attachments/assets/337b4fae-7153-4f18-96b6-641bd4f73fa5" />
 -<img width="1685" height="937" alt="image" src="https://github.com/user-attachments/assets/4ab95450-c6ba-4beb-a453-23d73353a41b" />
