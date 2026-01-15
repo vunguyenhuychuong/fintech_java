@@ -1,9 +1,9 @@
-package service;
+package com.example.fintech_java.service;
 
-import entity.UserWallet;
+import com.example.fintech_java.entity.UserWallet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import repository.UserWalletRepository;
+import com.example.fintech_java.repository.UserWalletRepository;
 
 @Service
 @RequiredArgsConstructor

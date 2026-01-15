@@ -1,11 +1,11 @@
-package controller;
+package com.example.fintech_java.controller;
 
-import entity.UserWallet;
+import com.example.fintech_java.entity.UserWallet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.WalletService;
+import com.example.fintech_java.service.WalletService;
 
 @RestController
 @RequestMapping("/api/wallet")

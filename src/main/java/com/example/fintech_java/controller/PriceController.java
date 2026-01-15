@@ -1,11 +1,11 @@
-package controller;
+package com.example.fintech_java.controller;
 
-import entity.AggregatedPrice;
+import com.example.fintech_java.entity.AggregatedPrice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.PriceAggregationService;
+import com.example.fintech_java.service.PriceAggregationService;
 
 import java.util.List;
 

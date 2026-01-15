@@ -1,7 +1,7 @@
-package service;
+package com.example.fintech_java.service;
 
-import dto.TradeRequest;
-import entity.TradeTransaction;
+import com.example.fintech_java.dto.TradeRequest;
+import com.example.fintech_java.entity.TradeTransaction;
 
 import java.util.List;
 

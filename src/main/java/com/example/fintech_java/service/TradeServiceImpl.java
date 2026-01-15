@@ -1,15 +1,15 @@
-package service;
+package com.example.fintech_java.service;
 
-import dto.TradeRequest;
-import entity.AggregatedPrice;
-import entity.TradeTransaction;
-import entity.UserWallet;
+import com.example.fintech_java.dto.TradeRequest;
+import com.example.fintech_java.entity.AggregatedPrice;
+import com.example.fintech_java.entity.TradeTransaction;
+import com.example.fintech_java.entity.UserWallet;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import repository.AggregatedPriceRepository;
-import repository.TradeTransactionRepository;
-import repository.UserWalletRepository;
+import com.example.fintech_java.repository.AggregatedPriceRepository;
+import com.example.fintech_java.repository.TradeTransactionRepository;
+import com.example.fintech_java.repository.UserWalletRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

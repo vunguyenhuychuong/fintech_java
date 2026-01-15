@@ -1,16 +1,16 @@
-package service;
+package com.example.fintech_java.service;
 
-import dto.BinanceTickerDto;
-import dto.HuobiResponse;
-import dto.HuobiTickerDto;
-import dto.PriceDto;
-import entity.AggregatedPrice;
+import com.example.fintech_java.dto.BinanceTickerDto;
+import com.example.fintech_java.dto.HuobiResponse;
+import com.example.fintech_java.dto.HuobiTickerDto;
+import com.example.fintech_java.dto.PriceDto;
+import com.example.fintech_java.entity.AggregatedPrice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import repository.AggregatedPriceRepository;
+import com.example.fintech_java.repository.AggregatedPriceRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

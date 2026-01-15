@@ -1,6 +1,6 @@
-package service;
+package com.example.fintech_java.service;
 
-import entity.AggregatedPrice;
+import com.example.fintech_java.entity.AggregatedPrice;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package dto;
+package com.example.fintech_java.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package repository;
+package com.example.fintech_java.repository;
 
-import entity.AggregatedPrice;
+import com.example.fintech_java.entity.AggregatedPrice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

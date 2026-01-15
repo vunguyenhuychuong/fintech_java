@@ -1,11 +1,11 @@
-package controller;
+package com.example.fintech_java.controller;
 
-import dto.TradeRequest;
-import entity.TradeTransaction;
+import com.example.fintech_java.dto.TradeRequest;
+import com.example.fintech_java.entity.TradeTransaction;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.TradeService;
+import com.example.fintech_java.service.TradeService;
 
 import java.util.List;
 

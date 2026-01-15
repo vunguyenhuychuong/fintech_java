@@ -1,4 +1,4 @@
-package entity;
+package com.example.fintech_java.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

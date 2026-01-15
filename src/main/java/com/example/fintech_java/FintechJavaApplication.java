@@ -14,8 +14,4 @@ public class FintechJavaApplication {
         SpringApplication.run(FintechJavaApplication.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 }
